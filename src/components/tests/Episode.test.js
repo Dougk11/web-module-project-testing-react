@@ -4,11 +4,20 @@ import Episode from './../Episode';
 
 const testEpisode = {
     id:1,
-    name: "",
+    name: "The Main Character Dies",
     image: "http://static.tvmaze.com/uploads/images/medium_landscape/67/168918.jpg",
-    season: 1,
-    number: 1,
-    summary: "",
+    season: 3,
+    number: 4,
+    summary: "The main character dies in this one",
+    runtime: 1
+}
+const testEpisodeTwo = {
+    id:1,
+    name: "The Main Character Dies",
+    image: null,
+    season: 3,
+    number: 4,
+    summary: "The main character dies in this one",
     runtime: 1
 }
 
@@ -17,15 +26,25 @@ const testEpisodeWithoutImage = {
 }
 
 test("renders without error", () => {
-
+    render(<Episode />);
 });
 
 test("renders the summury test passed as prop", ()=>{
-    
+    render(<Episode episode={testEpisode}/>)
+
+    const summaryTest = screen.queryByText(/the main character/i);
+
+    expect(summaryTest).toBeInTheDocument();
+    expect(summaryTest).toBeTruthy();
+    expect(summaryTest).not.toBeNull();
 });
 
 test("renders default image when image is not defined", ()=>{
-    
+    render(<Episode episode={testEpisodeTwo} />)
+
+    const imgText = screen.queryByAltText('./stranger_things.png');
+
+    expect (imgText).toBeInTheDocument();
 })
 
 //Tasks
